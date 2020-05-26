@@ -11,8 +11,8 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @EnableEurekaClient
 @EntityScan("com.ljl.domain")
 public class UserApplication {
-  public static void main(String[] args) {
-    new SpringApplicationBuilder(UserApplication.class)
-        .web(true).run(args);
-  }
+
+    public static void main(String[] args) {
+        new SpringApplicationBuilder(UserApplication.class).web(true).run(args);
+    }
 }

@@ -6,6 +6,6 @@ import lombok.Data;
 
 @Data
 public class UserLoginDTO {
-  private User user;
-  private JWT jwt;
+    private User user;
+    private JWT jwt;
 }

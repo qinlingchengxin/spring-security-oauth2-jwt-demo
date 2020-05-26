@@ -11,8 +11,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @EnableEurekaClient
 @EntityScan("com.ljl.domain")
 public class UaaApplication {
-  public static void main(String[] args) {
-    new SpringApplicationBuilder(UaaApplication.class)
-        .web(true).run(args);
-  }
+
+    public static void main(String[] args) {
+        new SpringApplicationBuilder(UaaApplication.class).web(true).run(args);
+    }
 }

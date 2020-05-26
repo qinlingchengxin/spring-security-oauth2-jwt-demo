@@ -17,35 +17,35 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 @Configuration
 @EnableAuthorizationServer
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
-  @Autowired
-  @Qualifier("authenticationManagerBean")
-  private AuthenticationManager authenticationManager;
 
-  // 配置客户端基本信息
-  @Override
-  public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-    clients.inMemory().withClient("user-service")
-        .secret("123456")
-        .scopes("service")
-        .authorizedGrantTypes("refresh_token", "password")
-        .accessTokenValiditySeconds(3600);
-  }
+    @Autowired
+    @Qualifier("authenticationManagerBean")
+    private AuthenticationManager authenticationManager;
 
-  @Override
-  public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-    endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtAccessTokenConverter())
-        .authenticationManager(authenticationManager);
-  }
+    // 配置客户端基本信息
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.inMemory().withClient("user-service")
+                .secret("123456")
+                .scopes("service")
+                .authorizedGrantTypes("refresh_token", "password")
+                .accessTokenValiditySeconds(3600);
+    }
 
-  public TokenStore tokenStore() {
-    return new JwtTokenStore(jwtAccessTokenConverter());
-  }
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtAccessTokenConverter())
+                .authenticationManager(authenticationManager);
+    }
 
-  private JwtAccessTokenConverter jwtAccessTokenConverter() {
-    KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("ljl-jwt.jks"),
-        "ljl123".toCharArray());
-    JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-    converter.setKeyPair(keyStoreKeyFactory.getKeyPair("ljl-jwt"));
-    return converter;
-  }
+    public TokenStore tokenStore() {
+        return new JwtTokenStore(jwtAccessTokenConverter());
+    }
+
+    private JwtAccessTokenConverter jwtAccessTokenConverter() {
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("ljl-jwt.jks"), "ljl123".toCharArray());
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("ljl-jwt"));
+        return converter;
+    }
 }

@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 @ResponseBody
 public class ExceptionHandle {
-  @ExceptionHandler(RuntimeException.class)
-  public ResponseEntity<String> handleException(Exception ex) {
-    return new ResponseEntity<>(ex.getMessage(), HttpStatus.OK);
-  }
+    
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleException(Exception ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.OK);
+    }
 }
